@@ -1,6 +1,7 @@
 ##############
 # x in a row #
 ##############
+#interaktiv mit eintippen
 
 
 from itertools import count
@@ -22,12 +23,15 @@ class Board:
         self.turn_color = 'x'
         self.count_tokens = 0
         self.win = win
-        if win > height and win > width:
+        if self.win <= 1:
+            print(f'{self.win}-in-a-row wouldn`t really make sense')
+            self.win = width
+        if  self.win > height and self.win > width:
             print('This game would be unwinnable')
-            win = width
-            print(f'You are now playing {win}-in-a-row')
+            self.win = width
+            print(f'You are now playing {self.win}-in-a-row')
         else:
-            print(f'You are now playing {win}-in-a-row')
+            print(f'You are now playing {self.win}-in-a-row')
    
     def ascii(self):
         return '\n'.join(['.' * self.width ] * self.height)
@@ -110,6 +114,25 @@ class Board:
                 if string.count('x'*self.win)>0:
                     print('x won')
                     self.game_status = 'over'
+            
+            #draw?
+            end=0
+            for i in range(self.height):
+                end = end + current_list[i].count('o')
+                end = end + current_list[i].count('x')
+            if end == self.height*self.width:
+                print('Draw')
+                self.game_status = 'over'
 
+            #next?
             if self.game_status == 'active':
                 print(f'Now it`s {self.turn_color}`s turn')
+                            
+
+a = input('Now type the width of your game ') 
+b = input('Now type the heigth of your game ')
+c = input('With how many identical tokens in a row do you want to win?')       
+board = Board(int(a),int(b),int(c))
+while board.game_status == 'active':
+    a= input('Which colum do you want do drop your token?')     
+    board.drop(a+1)
