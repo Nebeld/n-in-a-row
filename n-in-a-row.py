@@ -61,7 +61,7 @@ class Board:
                     self.turn_color = 'x'
             
             ##checks if win##
-            #Zeilen 
+            #row
             for a in range(len(current_list)):
                 string=''.join(current_list[a])
                 if string.count('o'*self.win)>0:
@@ -71,7 +71,7 @@ class Board:
                     print('x won')
                     self.game_status = 'over'
 
-            #Spalten
+            #column
             for a in range(len(current_list[0])):
                 for b in range(len(current_list)):
                     string=string+current_list[b][a]
@@ -83,7 +83,7 @@ class Board:
                     self.game_status = 'over' 
                 string= ''
 
-            #Diagonalen  von ul nach or
+            #diagonals
             ul_zu_or = [[] for a in range(len(current_list) + len(current_list[0]) - 1)]
             ur_zu_ol = [[] for a in range(len(current_list) + len(current_list[0]) - 1)]
 
