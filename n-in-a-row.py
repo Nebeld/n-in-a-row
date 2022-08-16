@@ -1,7 +1,7 @@
 ##############
 # x in a row #
 ##############
-#interaktiv mit eintippen
+
 
 
 from itertools import count
