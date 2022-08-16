@@ -1,7 +1,6 @@
 ##############
 # x in a row #
 ##############
-#komma zahlen ausprobieren
 
 from itertools import count
 
