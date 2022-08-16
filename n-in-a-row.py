@@ -1,16 +1,11 @@
 ##############
 # x in a row #
 ##############
-
-
+#komma zahlen ausprobieren
 
 from itertools import count
 
-text= 'Welcome to x-in-a-row. \nThere are two players (x and o). "x" begins.' \
-      + '\nAt first you have to customize your board by typing board = Board("width", "height").' \
-      + '\nThe tokens can be dropped by typing board.drop("column you want to drop your token")'
-
-print(text)
+print('Welcome to x-in-a-row. \nThere are two players (x and o). "x" begins.')
 
 class Board:
     
@@ -18,20 +13,33 @@ class Board:
         self.width = width
         self.height = height
         self.win_length = win
-        self.current_list = [['.'] * self.width for x in range(self.height)]
         self.game_status = 'active'
         self.turn_color = 'x'
         self.count_tokens = 0
         self.win = win
+        if self.width <2:
+            print('Your width must be at least 2')
+            self.width = 2
+        if self.height <2:
+            print('Your height must be at least 2')
+            self.height = 2
+        self.current_list = [['.'] * self.width for x in range(self.height)]
+            
         if self.win <= 1:
             print(f'{self.win}-in-a-row wouldn`t really make sense')
             self.win = width
         if  self.win > height and self.win > width:
             print('This game would be unwinnable')
             self.win = width
-            print(f'You are now playing {self.win}-in-a-row')
+            print(f'You are now playing {self.win}-in-a-row\n')
         else:
-            print(f'You are now playing {self.win}-in-a-row')
+            print(f'You are now playing {self.win}-in-a-row\n')
+        
+        string_with_numbers= '|'
+        for a in range(1,self.width+1):
+            string_with_numbers = string_with_numbers+str(a)+'|'
+        print(string_with_numbers)
+        print(' '+'\n '.join(map(lambda a:' '.join(map(str, a)), self.current_list))+'\n')
    
     def ascii(self):
         return '\n'.join(['.' * self.width ] * self.height)
@@ -42,27 +50,30 @@ class Board:
         x=1
         
         if self.game_status == 'active':
-            if  current_list[self.height-x][int(column)] == '.':
-                current_list[self.height-x][int(column)] = self.turn_color
-                self.position = ([self.height-x],[int(column)])
-                print("\n".join(map(lambda a:' '.join(map(str, a)), current_list)))
-                x=x+1
-                #change turn_color
-                if self.turn_color == 'x':
-                    self.turn_color = 'o'
-                else:
-                    self.turn_color = 'x'
-            else: 
-                while current_list[self.height-x][int(column)] != '.':
+            try:
+                if  current_list[self.height-x][int(column)] == '.':
+                    current_list[self.height-x][int(column)] = self.turn_color
+                    self.position = ([self.height-x],[int(column)])
+                    print('\n '+'\n '.join(map(lambda a:' '.join(map(str, a)), current_list)))
                     x=x+1
-                current_list[self.height-x][int(column)] = self.turn_color
-                self.position = ([self.height-x],[int(column)])
-                print("\n".join(map(lambda a:' '.join(map(str, a)), current_list)))
-                #change turn_color
-                if self.turn_color == 'x':
-                    self.turn_color = 'o'
-                else:
-                    self.turn_color = 'x'
+                    #change turn_color
+                    if self.turn_color == 'x':
+                        self.turn_color = 'o'
+                    else:
+                        self.turn_color = 'x'
+                else: 
+                    while current_list[self.height-x][int(column)] != '.':
+                        x=x+1
+                    current_list[self.height-x][int(column)] = self.turn_color
+                    self.position = ([self.height-x],[int(column)])
+                    print('\n'+'\n'.join(map(lambda a:' '.join(map(str, a)), current_list)))
+                    #change turn_color
+                    if self.turn_color == 'x':
+                        self.turn_color = 'o'
+                    else:
+                        self.turn_color = 'x'
+            except:
+                print('This column is full')
             
             ##checks if win##
             #row
@@ -116,23 +127,35 @@ class Board:
                     self.game_status = 'over'
             
             #draw?
-            end=0
-            for i in range(self.height):
-                end = end + current_list[i].count('o')
-                end = end + current_list[i].count('x')
-            if end == self.height*self.width:
-                print('Draw')
-                self.game_status = 'over'
+            if self.game_status == 'active':
+                end=0
+                for i in range(self.height):
+                    end = end + current_list[i].count('o')
+                    end = end + current_list[i].count('x')
+                if end == self.height*self.width:
+                    print('Draw')
+                    self.game_status = 'over'
 
             #next?
             if self.game_status == 'active':
-                print(f'Now it`s {self.turn_color}`s turn')
-                            
+                print(f'\nIt`s {self.turn_color}`s turn')
+                
+                
+a = 'a' 
+b = 'b'
+c = 'c'  
 
-a = input('Now type the width of your game ') 
-b = input('Now type the heigth of your game ')
-c = input('With how many identical tokens in a row do you want to win?')       
+                         
+while a.isdigit() == False:                          
+    a = input('Now type the width of your game ')
+while b.isdigit() == False: 
+    b = input('Now type the heigth of your game ')
+while c.isdigit() == False:
+    c = input('With how many identical tokens in a row do you want to win? ')       
 board = Board(int(a),int(b),int(c))
 while board.game_status == 'active':
-    a= input('Which colum do you want do drop your token?')     
-    board.drop(a+1)
+    try:
+        d= input('Which column do you want to drop your token? ')     
+        board.drop(int(d)-1)
+    except:
+        print(f'You have to insert a number between 1 and {board.width}\n')
