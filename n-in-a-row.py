@@ -112,4 +112,4 @@ class Board:
                     self.game_status = 'over'
 
             if self.game_status == 'active':
-                print('Now it`s ', self.turn_color, '`s turn')
+                print(f'Now it`s {self.turn_color}`s turn')
