@@ -26,10 +26,10 @@ class Board:
             
         if self.win <= 1:
             print(f'{self.win}-in-a-row wouldn`t really make sense')
-            self.win = width
-        if  self.win > height and self.win > width:
+            self.win = self.width
+        if  self.win > self.height and self.win > self.width:
             print('This game would be unwinnable')
-            self.win = width
+            self.win = self.width
             print(f'You are now playing {self.win}-in-a-row\n')
         else:
             print(f'You are now playing {self.win}-in-a-row\n')
@@ -65,7 +65,7 @@ class Board:
                         x=x+1
                     current_list[self.height-x][int(column)] = self.turn_color
                     self.position = ([self.height-x],[int(column)])
-                    print('\n'+'\n'.join(map(lambda a:' '.join(map(str, a)), current_list)))
+                    print('\n '+'\n '.join(map(lambda a:' '.join(map(str, a)), current_list)))
                     #change turn_color
                     if self.turn_color == 'x':
                         self.turn_color = 'o'
@@ -79,10 +79,10 @@ class Board:
             for a in range(len(current_list)):
                 string=''.join(current_list[a])
                 if string.count('o'*self.win)>0:
-                    print('o won')
+                    print('\no won')
                     self.game_status = 'over'
                 if string.count('x'*self.win)>0:
-                    print('x won')
+                    print('\nx won')
                     self.game_status = 'over'
 
             #column
@@ -90,10 +90,10 @@ class Board:
                 for b in range(len(current_list)):
                     string=string+current_list[b][a]
                 if string.count('o'*self.win)>0:
-                    print('o won')
+                    print('\no won')
                     self.game_status = 'over'
                 if string.count('x'*self.win)>0:
-                    print('x won') 
+                    print('\nx won') 
                     self.game_status = 'over' 
                 string= ''
 
@@ -110,19 +110,19 @@ class Board:
             for a in range(len(ul_zu_or)):
                 string=''.join(ul_zu_or[a])
                 if string.count('o'*self.win)>0:
-                    print('o won')
+                    print('\no won')
                     self.game_status = 'over'
                 if string.count('x'*self.win)>0:
-                    print('x won')
+                    print('\nx won')
                     self.game_status = 'over'
 
             for a in range(len(ur_zu_ol)):
                 string=''.join(ur_zu_ol[a])
                 if string.count('o'*self.win)>0:
-                    print('o won')
+                    print('\no won')
                     self.game_status = 'over'
                 if string.count('x'*self.win)>0:
-                    print('x won')
+                    print('\nx won')
                     self.game_status = 'over'
             
             #draw?
@@ -132,7 +132,7 @@ class Board:
                     end = end + current_list[i].count('o')
                     end = end + current_list[i].count('x')
                 if end == self.height*self.width:
-                    print('Draw')
+                    print('\nDraw')
                     self.game_status = 'over'
 
             #next?
