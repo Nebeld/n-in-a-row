@@ -1,6 +1,7 @@
 ##############
 # x in a row #
 ##############
+#nochmal sagen wer dran ist
 
 from itertools import count
 
@@ -33,9 +34,11 @@ class Board:
                 self.win = self.width
             else:
                 self.win = self.height
-            print(f'You are now playing {self.win}-in-a-row\n')
+            print(f'\nYou are now playing {self.win}-in-a-row')
+            print(f'x begins\n')
         else:
-            print(f'You are now playing {self.win}-in-a-row\n')
+            print(f'\nYou are now playing {self.win}-in-a-row')
+            print(f'x begins\n')
         
         string_with_numbers= '|'
         if self.width < 10:
@@ -154,22 +157,21 @@ class Board:
             if self.game_status == 'active':
                 print(f'\nIt`s {self.turn_color}`s turn')
                 
-                
-a = 'a' 
-b = 'b'
-c = 'c'  
 
-                         
-while a.isdigit() == False:                          
-    a = input('Now type the width of your game ')
-while b.isdigit() == False: 
-    b = input('Now type the heigth of your game ')
-while c.isdigit() == False:
-    c = input('With how many identical tokens in a row do you want to win? ')       
-board = Board(int(a),int(b),int(c))
-while board.game_status == 'active':
-    try:
-        d= input('Which column do you want to drop your token? ')     
-        board.drop(int(d)-1)
-    except:
-        print(f'You have to insert a number between 1 and {board.width}\n')
+if __name__ == '__main__':      
+    a = 'a' 
+    b = 'b'
+    c = 'c'                          
+    while a.isdigit() == False:                          
+        a = input('Now type the width of your game ')
+    while b.isdigit() == False: 
+        b = input('Now type the heigth of your game ')
+    while c.isdigit() == False:
+        c = input('With how many identical tokens in a row do you want to win? ')       
+    board = Board(int(a),int(b),int(c))
+    while board.game_status == 'active':
+        try:
+            d= input('Which column do you want to drop your token? ')     
+            board.drop(int(d)-1)
+        except:
+            print(f'You have to insert a number between 1 and {board.width}\n')
