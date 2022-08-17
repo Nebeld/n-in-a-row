@@ -29,16 +29,31 @@ class Board:
             self.win = self.width
         if  self.win > self.height and self.win > self.width:
             print('This game would be unwinnable')
-            self.win = self.width
+            if self.width > self.height:
+                self.win = self.width
+            else:
+                self.win = self.height
             print(f'You are now playing {self.win}-in-a-row\n')
         else:
             print(f'You are now playing {self.win}-in-a-row\n')
         
         string_with_numbers= '|'
-        for a in range(1,self.width+1):
-            string_with_numbers = string_with_numbers+str(a)+'|'
-        print(string_with_numbers)
-        print(' '+'\n '.join(map(lambda a:' '.join(map(str, a)), self.current_list))+'\n')
+        if self.width < 10:
+            for a in range(1,self.width+1):
+                string_with_numbers = string_with_numbers+str(a)+'|'
+            print(string_with_numbers)
+            print(' '+'\n '.join(map(lambda a:' '.join(map(str, a)), self.current_list))+'\n')
+        else:
+            for a in range(1,10):
+                string_with_numbers = string_with_numbers+str(a)+' |'
+            for a in range(10, self.width+1):
+                string_with_numbers = string_with_numbers+str(a)+'|'
+            print(string_with_numbers)
+            print(' '+'\n '.join(map(lambda a:'  '.join(map(str, a)), self.current_list))+'\n')
+
+
+        
+
    
     def ascii(self):
         return '\n'.join(['.' * self.width ] * self.height)
